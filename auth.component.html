@@ -1,0 +1,11 @@
+<div class="page">
+  <div class="card">
+    <h1 class="title">Notes</h1>
+    <input class="input" type="password" placeholder="Enter your auth code..." [(ngModel)]="authCode"
+      (keydown)="onKey($event)" autofocus />
+    <p class="hint" [class.error]="error">
+      {{ error || 'Enter auth code to access ur notes' }}
+    </p>
+    <button class="btn" (click)="continue()">Continue</button>
+  </div>
+</div>

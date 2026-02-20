@@ -1,0 +1,53 @@
+<div class="page">
+
+  <div class="header">
+    <div class="header-left">
+      <button class="back-btn" (click)="logout()">&#8592;</button>
+      <h1 class="page-title">Your Notes</h1>
+    </div>
+    <button class="new-btn" (click)="showNewModal = true">+ New</button>
+  </div>
+
+  <div class="search-wrap">
+    <div class="search-box">
+      <!-- <span class="search-icon">&#128269;</span> -->
+      <input class="search-input" type="text" placeholder="Search files by name or content..." [(ngModel)]="searchQuery"
+        (input)="onSearch()" />
+    </div>
+  </div>
+
+  <div class="list-wrap">
+
+    <div class="empty" *ngIf="filteredNotes.length === 0 && !searchQuery">
+      <p>No notes yet.</p>
+      <p>Click <strong>+ New</strong> to create your first note.</p>
+    </div>
+
+    <div class="empty" *ngIf="filteredNotes.length === 0 && searchQuery">
+      <p>No notes match "<strong>{{ searchQuery }}</strong>"</p>
+    </div>
+
+    <div class="note-row" *ngFor="let note of filteredNotes" (click)="openNote(note)">
+      <div class="note-info">
+        <div class="note-title">{{ note.title }}</div>
+        <div class="note-preview" *ngIf="getPreview(note.content)">
+          {{ getPreview(note.content) }}
+        </div>
+      </div>
+      <div class="note-time">{{ getTimeAgo(note.updatedAt) }}</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="overlay" *ngIf="showNewModal" (click)="showNewModal = false">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <h3>New Note</h3>
+    <input class="modal-input" type="text" placeholder="Note title..." [(ngModel)]="newTitle"
+      (keydown.enter)="createNote()" autofocus />
+    <div class="modal-actions">
+      <button class="modal-cancel" (click)="showNewModal = false">Cancel</button>
+      <button class="modal-create" (click)="createNote()">Create</button>
+    </div>
+  </div>
+</div>

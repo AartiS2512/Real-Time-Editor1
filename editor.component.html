@@ -1,0 +1,28 @@
+<div class="page">
+  <div class="topbar">
+    <div class="topbar-left">
+      <button class="back-btn" (click)="goBack()">&#8592;</button>
+      <input
+        class="title-input"
+        type="text"
+        [(ngModel)]="title"
+        (input)="onInput()"
+        placeholder="Untitled"
+      />
+    </div>
+    <span class="save-status" [class.saving]="!saved">
+      {{ saved ? '✓ Saved' : 'Saving...' }}
+    </span>
+  </div>
+
+  <div class="editor-area">
+    <textarea
+      #textarea
+      class="textarea"
+      [(ngModel)]="content"
+      (input)="onInput()"
+      placeholder="Start typing..."
+      spellcheck="true"
+    ></textarea>
+  </div>
+</div>
